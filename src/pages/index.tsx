@@ -8,7 +8,7 @@ function HeroBanner() {
 			<div className={styles.heroTextAndImage}>
 				<div className={styles.heroTextAndButtons}>
 					<span className={styles.heroText}>
-						Build <b>iOS/Swift</b> apps in <b>Visual Studio Code</b>
+						Build <b>iOS/Swift</b> apps using <b>Visual Studio Code</b>
 					</span>
 					<div className={styles.heroButtons}>
 						<Link
