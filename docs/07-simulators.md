@@ -1,9 +1,11 @@
+import ReactPlayer from 'react-player'
+
 # iOS Simulators
 
 You can run and stop the iOS simulator directly from the VSCode sidebar. This functionality utilizes `xcrun`, which is a
 component of the Xcode command-line tools.
 
-![iOS simulator](/images/simulators-demo.mp4)
+<ReactPlayer url="/images/simulators-demo.mp4" controls height="100%" width="100%" />
 
 ### Features:
 
