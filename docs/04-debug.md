@@ -9,7 +9,7 @@ To debug an iOS application extension, provide thin integration with the
 1. Create a `launch.json` configuration file in the `.vscode` directory of your project. The configuration file should
    contain the following configuration:
 
-```jsonc
+```json title=".vscode/launch.json"
 {
   "version": "0.2.0",
   "configurations": [
@@ -58,7 +58,7 @@ Also, you can create that file by clicking on the "Create a launch.json file" li
 
 ![Breakpoints](/images/debug-old-breakpoints.png)
 
-```jsonc
+```json title=".vscode/launch.json"
 {
   "version": "0.2.0",
   "configurations": [

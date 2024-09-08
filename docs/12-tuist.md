@@ -18,7 +18,7 @@ project, the watcher will automatically regenerate the Xcode project by executin
 
 To enable the watcher, add the following configuration to your `.vscode/settings.json` file:
 
-```json
+```json title=".vscode/settings.json"
 {
   "sweetpad.tuist.watcher": true
 }

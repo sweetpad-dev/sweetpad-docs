@@ -45,7 +45,7 @@ or device. You can run these tasks from the command palette by typing `Tasks: Ru
 
 Or you can add tasks to the `tasks.json` file in the `.vscode` folder of your project:
 
-```jsonc
+```json title=".vscode/tasks.json"
 {
   "version": "2.0.0",
   "tasks": [
@@ -64,7 +64,7 @@ Or you can add tasks to the `tasks.json` file in the `.vscode` folder of your pr
 
 If you are working on multiple Xcode workspaces, you can set the workspace path in the SweetPad configuration:
 
-```jsonc
+```json title=".vscode/settings.json"
 {
   // Path to your Xcode workspace (.xcworkspace file)
   // The path can be absolute or relative to the folder in which VSCode is opened.
@@ -93,7 +93,7 @@ xcodebuild uses a default location for this data in the `/Users/<username>/Libra
 and there's no need to change it manually. However, sometimes you may want to change this location to a different
 directory. Here's how you can do it in your VSCode's `.vscode/settings.json`:
 
-```jsonc
+```json title=".vscode/settings.json"
 {
   "sweetpad.build.derivedDataPath": "/path/to/your/derivedData",
   // Examples:
@@ -111,7 +111,7 @@ directory. Here's how you can do it in your VSCode's `.vscode/settings.json`:
 You can set additional build settings for the `xcodebuild` command using the `sweetpad.build.args` configuration. For
 example, you can skip the macro validation step by adding the `-skipMacroValidation` argument:
 
-```jsonc
+```json title=".vscode/settings.json"
 {
   "sweetpad.build.args": ["-skipMacroValidation"],
 }
