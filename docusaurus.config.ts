@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Sweetpad',
   tagline: 'iOS/Swift development in VSCode',
-  favicon: 'img/favicon.ico',
+  favicon: 'images/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://sweetpad.hyzyla.dev',
@@ -64,12 +64,12 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/logo.png',
+    image: 'images/logo.png',
     navbar: {
       title: 'Sweetpad',
       logo: {
         alt: 'Sweetpad logo',
-        src: 'img/logo.svg',
+        src: 'images/logo.svg',
       },
       items: [
         {

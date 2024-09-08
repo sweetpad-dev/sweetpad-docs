@@ -19,7 +19,7 @@ function HeroBanner() {
             </Link>
           </div>
         </div>
-        <img className={styles.heroImage} src="/img/logo.png" alt="Hero" />
+        <img className={styles.heroImage} src="/images/logo.png" alt="Hero" />
       </div>
     </div>
   );
