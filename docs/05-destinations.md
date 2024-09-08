@@ -34,5 +34,5 @@ To select a destination to run your app, you can use one of the following method
 
 ## Related Documentation
 
-- [SweetPad: iOS Simulator/Emulator Manager](07-simulator.md)
-- [SweetPad: iOS Device Manager](06-devices.md)
+- [SweetPad: iOS Simulator/Emulator Manager](./07-simulators.md)
+- [SweetPad: iOS Device Manager](./06-devices.md)

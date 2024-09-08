@@ -89,6 +89,16 @@
     flex-wrap: wrap;
 }
 
+.featureLink {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--ifm-link-color);
+}
+
+.featureLink:hover {
+    color: var(--ifm-link-hover-color);
+    text-decoration: none;
+}
 
 @media (max-width: 768px) {
     .features {
