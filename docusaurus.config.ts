@@ -49,7 +49,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/sweetpad-dev/sweetpad-docs/edit/main/',
         },
         // blog: {
         //   showReadingTime: true,
@@ -93,6 +93,11 @@ const config: Config = {
         {
           href: 'https://github.com/sweetpad-dev/sweetpad',
           label: 'GitHub',
+          position: 'right',
+        },
+        {
+          href: 'https://marketplace.visualstudio.com/items?itemName=sweetpad.sweetpad',
+          label: 'VSCode Marketplace',
           position: 'right',
         },
       ],
