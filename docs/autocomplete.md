@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Autocomplete
 
 This extension helps you to integrate Xcode with SourceKit-LSP for autocomplete functionality.

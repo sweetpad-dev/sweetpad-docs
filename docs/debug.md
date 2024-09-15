@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Debugging
 
 To debug an iOS application extension, provide thin integration with the

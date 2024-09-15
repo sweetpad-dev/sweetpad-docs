@@ -1,3 +1,8 @@
+---
+sidebar_position: 11
+---
+
+
 # Tools
 
 The extension provides an easy way to install essential iOS development tools using Homebrew. It also offers quick

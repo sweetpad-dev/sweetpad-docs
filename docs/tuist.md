@@ -1,3 +1,8 @@
+---
+sidebar_position: 12
+---
+
+
 # Tuist
 
 Instead of managing your Xcode project directly in Xcode, you can use the [Tuist](https://tuist.io) tool to define the

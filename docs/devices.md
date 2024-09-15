@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # iOS Devices
 
 Currently, SweetPad does not support much functionality for managing iOS devices. However, the extension provides basic

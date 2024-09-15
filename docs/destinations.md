@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+---
+
+
 # Destinations
 
 In SweetPad, a "destination" refers to a device on which you can run your app, such as a specific simulator or a
@@ -34,5 +39,6 @@ To select a destination to run your app, you can use one of the following method
 
 ## Related Documentation
 
-- [SweetPad: iOS Simulator/Emulator Manager](./07-simulators.md)
-- [SweetPad: iOS Device Manager](./06-devices.md)
+- [SweetPad: iOS Simulator/Emulator Manager](./simulators.md)
+- [SweetPad: iOS Device Manager](./devices.md)
+- [SweetPad: watchOS Simulator Manager](./watchos-simulators.md)

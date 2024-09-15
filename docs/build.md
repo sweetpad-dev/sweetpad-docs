@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # Build & Run
 
 You can build and run your iOS app directly on the simulator or device from the VSCode sidebar. This functionality

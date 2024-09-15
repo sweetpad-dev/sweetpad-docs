@@ -1,3 +1,8 @@
+---
+sidebar_position: 13
+---
+
+
 # Troubleshooting
 
 ## See logs

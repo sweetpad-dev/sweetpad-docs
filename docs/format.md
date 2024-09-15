@@ -1,3 +1,7 @@
+---
+sidebar_position: 9
+---
+
 # Format code
 
 This extension integrates [**swift-format**](https://github.com/apple/swift-format) by default, or other formatter of
