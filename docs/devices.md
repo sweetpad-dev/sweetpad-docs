@@ -44,3 +44,11 @@ xcrun devicectl list devices
 xcrun devicectl device install app --device <udid> <path>
 xcrun devicectl device launch app --terminate-existing --device <udid> <bundle_id>
 ```
+
+## Stdout and stderr from the device
+
+Stdout and stderr from the device are supported only in Xcode 16 and later versions. If you are using Xcode 15, please
+update Xcode to the latest version to view logs from the device. Additionally, pass the `--console` option to the
+`xcrun devicectl device launch` app command to see logs from the device.
+
+![Devices Stdout](/images/devices-stdout.png)
