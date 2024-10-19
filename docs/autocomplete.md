@@ -17,7 +17,7 @@ This extension helps you to integrate Xcode with SourceKit-LSP for autocomplete 
 brew install xcode-build-server --head
 ```
 
-2. Now create config file `buildServer.json` in the root of your project by running command: **"SweetPad: Create Build
+2. Now create config file `buildServer.json` in the root of your project by running command: **"SweetPad: Generate Build
    Server Config"** from the command palette.
 
 3. Then you have to build project in order to create build logs which are parsed by xcode-build-server and sent to
