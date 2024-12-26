@@ -25,6 +25,8 @@ To enable the watcher, add the following configuration to your `.vscode/settings
 
 ```json title=".vscode/settings.json"
 {
-  "sweetpad.tuist.watcher": true
+  "sweetpad.tuist.autogenerate": true
 }
 ```
+
+Then, restart Visual Studio Code to apply the changes.
