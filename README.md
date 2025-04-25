@@ -4,8 +4,8 @@ I use [Docusaurus](https://docusaurus.io/) to generate this documentation websit
 `docs` folder in `Markdown` format.
 
 I'm open to contributions to this documentation 🤝. Here is the official
-[GitHub documentation](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
-How to contribute to projects on GitHub.
+**[GitHub documentation](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)**
+how to contribute to projects on GitHub.
 
 # Installation
 
