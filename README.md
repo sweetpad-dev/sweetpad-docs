@@ -1,11 +1,11 @@
-# SweetPad VSCode Extension documentation website
+# SweetPad VSCode/Cursor Extension documentation website
 
 I use [Docusaurus](https://docusaurus.io/) to generate this documentation website. All the actual files are in the
 `docs` folder in `Markdown` format.
 
-I'm open for contributions to this documentation 🤝. Here is official
+I'm open to contributions to this documentation 🤝. Here is the official
 [GitHub documentation](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
-how to contribute to a projects on GitHub.
+How to contribute to projects on GitHub.
 
 # Installation
 
