@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Sweetpad',
+  title: 'SweetPad',
   tagline: 'iOS/Swift development using VSCode',
   favicon: 'images/favicon.ico',
 
@@ -77,9 +77,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'images/logo.png',
     navbar: {
-      title: 'Sweetpad',
+      title: 'SweetPad',
       logo: {
-        alt: 'Sweetpad logo',
+        alt: 'SweetPad logo',
         src: 'images/logo.svg',
       },
       items: [
