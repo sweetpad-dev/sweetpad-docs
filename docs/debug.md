@@ -33,12 +33,27 @@ The extension provides lightweight integration with the
    ![Select SweetPad LLDB](/images/debug-select-sweetpad-lldb.png)  
    ![Update launch.json](/images/debug-update-launch-json.png)
 
-2. **Start debugging (`F5`).**  
+2. **Configure LLDB backend** If you haven't done so already, configure the LLDB backend by adding the following to your
+   `settings.json`:
+
+   ```json title="settings.json"
+   {
+     "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
+   }
+   ```
+
+   This path is the default location of the LLDB library in default Xcode installations. If you have a custom
+   installation, you may need to adjust the path accordingly.
+
+   Alternatively, you can run "LLDB: Use Alternate Backend" from the command palette and type "lldb" to let the CodeLLDB
+   extension automatically find the LLDB library.
+
+3. **Start debugging (`F5`).**  
    Press **F5**. The debugger will build the app, launch it in the iOS Simulator, and attach to the running process.
 
    ![Launch debugger](/images/debug-launch-debugger.png)
 
-3. **Set breakpoints and iterate.**  
+4. **Set breakpoints and iterate.**  
    Place breakpoints as needed and debug your code. To run subsequent debugging sessions, simply press **F5**—the
    extension will automatically rebuild, launch, and attach.
 
@@ -120,25 +135,6 @@ The full list of available parameters for `codelldbAttributes` can be found in t
 
 This section is only relevant if you're debugging an app running on a physical device. Debugging on a device should
 generally work out of the box, but there are some differences compared to the simulator that you should be aware of.
-
-### Configure LLDB backend
-
-To debug on a physical device, you need to ensure that CodeLLDB uses the correct LLDB backend. By default, CodeLLDB uses
-the LLDB bundled with the extension, which does not support device debugging commands, like `device` and
-`platform remote-ios`. To fix this, you need to configure CodeLLDB to use the LLDB framework from Xcode.
-
-Recommended way to do this is to run the command **LLDB: Use Alternate Backend...** from the command palette, type
-`lldb` and CodeLLDB will automatically resolve the matching framework and write the setting below to your User Settings.
-
-Alternatively, if you know the path to the LLDB framework library, you can manually add it to your User Settings or
-Workspace Settings file — `"lldb.library"`. If you have Xcode installed in the default location, the path looks like
-this:
-
-```json title="settings.json"
-{
-  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
-}
-```
 
 ### Merging `codelldbAttributes`
 
