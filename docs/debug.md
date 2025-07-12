@@ -121,6 +121,25 @@ The full list of available parameters for `codelldbAttributes` can be found in t
 This section is only relevant if you're debugging an app running on a physical device. Debugging on a device should
 generally work out of the box, but there are some differences compared to the simulator that you should be aware of.
 
+### Configure LLDB backend
+
+To debug on a physical device, you need to ensure that CodeLLDB uses the correct LLDB backend. By default, CodeLLDB uses
+the LLDB bundled with the extension, which does not support device debugging commands, like `device` and
+`platform remote-ios`. To fix this, you need to configure CodeLLDB to use the LLDB framework from Xcode.
+
+Recommended way to do this is to run the command **LLDB: Use Alternate Backend...** from the command palette, type
+`lldb` and CodeLLDB will automatically resolve the matching framework and write the setting below to your User Settings.
+
+Alternatively, if you know the path to the LLDB framework library, you can manually add it to your User Settings or
+Workspace Settings file — `"lldb.library"`. If you have Xcode installed in the default location, the path looks like
+this:
+
+```json title="settings.json"
+{
+  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
+}
+```
+
 ### Merging `codelldbAttributes`
 
 When attaching to an app running **on a physical device**, SweetPad injects its own `CodeLLDB` commands into these
