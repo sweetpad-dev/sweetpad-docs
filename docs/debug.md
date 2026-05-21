@@ -4,9 +4,8 @@ sidebar_position: 4
 
 # Debugging
 
-The extension provides lightweight integration with the
-[CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) extension—powered by
-[LLDB](https://lldb.llvm.org/)—allowing you to debug your iOS application directly from Visual Studio Code.
+SweetPad integrates with the [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
+extension — powered by [LLDB](https://lldb.llvm.org/) — so you can debug your iOS app directly from VSCode.
 
 ## Tutorial
 
@@ -33,8 +32,8 @@ The extension provides lightweight integration with the
    ![Select SweetPad LLDB](/images/debug-select-sweetpad-lldb.png)  
    ![Update launch.json](/images/debug-update-launch-json.png)
 
-2. **Configure LLDB backend** If you haven't done so already, configure the LLDB backend by adding the following to your
-   `settings.json`:
+2. **Configure the LLDB backend.** If you haven't done so already, point CodeLLDB at Xcode's bundled LLDB by adding
+   the following to your `settings.json`:
 
    ```json title="settings.json"
    {
@@ -42,20 +41,19 @@ The extension provides lightweight integration with the
    }
    ```
 
-   This path is the default location of the LLDB library in default Xcode installations. If you have a custom
-   installation, you may need to adjust the path accordingly.
+   That's the default path for a stock Xcode install — adjust it if your Xcode lives somewhere else.
 
-   Alternatively, you can run "LLDB: Use Alternate Backend" from the command palette and type "lldb" to let the CodeLLDB
-   extension automatically find the LLDB library.
+   Alternatively, run **LLDB: Use Alternate Backend** from the command palette and type "lldb" to let CodeLLDB locate
+   the library for you.
 
 3. **Start debugging (`F5`).**  
-   Press **F5**. The debugger will build the app, launch it in the iOS Simulator, and attach to the running process.
+   Press **F5**. SweetPad builds the app, launches it in the Simulator, and attaches LLDB to the running process.
 
    ![Launch debugger](/images/debug-launch-debugger.png)
 
 4. **Set breakpoints and iterate.**  
-   Place breakpoints as needed and debug your code. To run subsequent debugging sessions, simply press **F5**—the
-   extension will automatically rebuild, launch, and attach.
+   Place breakpoints and debug as usual. On subsequent runs, just press **F5** again — SweetPad rebuilds, relaunches,
+   and reattaches.
 
    ![Breakpoints](/images/debug-breakpoints.png)
 
@@ -75,13 +73,8 @@ For example, the task below builds the app with the **Release** scheme before la
       "detail": "Build and launch the app (Release)",
       "scheme": "Release",
       "configuration": "Release",
-      "isBackground": true, // Important: lets VS Code know when the task is ready
-      "problemMatcher": [
-        "$sweetpad-watch",
-        "$sweetpad-xcodebuild-default",
-        "$sweetpad-xcbeautify-errors",
-        "$sweetpad-xcbeautify-warnings"
-      ]
+      "isBackground": true, // Important: lets VSCode know when the task is ready
+      "problemMatcher": ["$sweetpad-watch"]
     }
   ]
 }
@@ -135,12 +128,14 @@ The full list of available parameters for `codelldbAttributes` can be found in t
 
 This section is only relevant if you're debugging an app running on a physical device. Debugging on a device should
 generally work out of the box, but there are some differences compared to the simulator that you should be aware of.
+On iOS 17+ the device launch goes through a developer tunnel managed by `pymobiledevice3`; see
+[Devices → iOS 17+: the developer tunnel](./devices.md#ios-17-the-developer-tunnel) for the one-time setup.
 
 ### Merging `codelldbAttributes`
 
-When attaching to an app running **on a physical device**, SweetPad injects its own `CodeLLDB` commands into these
-properties: `initCommands`, `preRunCommands`, and `processCreateCommands`. If you add your own commands through the
-`codelldbAttributes` property, SweetPad merges them together **in the following order**:
+When attaching to an app running **on a physical device**, SweetPad injects its own LLDB commands into
+`initCommands`, `preRunCommands`, and `processCreateCommands`. If you supply your own commands through
+`codelldbAttributes`, SweetPad merges them in this order:
 
 ```json
 {
@@ -152,14 +147,15 @@ properties: `initCommands`, `preRunCommands`, and `processCreateCommands`. If yo
 }
 ```
 
-To see exactly which commands SweetPad injects, check the extension's source code:
-[resolveDeviceDebugConfiguration](https://github.com/sweetpad-dev/sweetpad/blob/main/src/debugger/provider.ts)
+For the exact commands SweetPad injects, see
+[resolveDeviceDebugConfiguration](https://github.com/sweetpad-dev/sweetpad/blob/main/src/debugger/provider.ts) in the
+extension source.
 
 ### Stop on attach
 
-By default, SweetPad injects commands that prevent the debugger from stopping after attaching to the application. This
-prevents confusion when the debugger stops even without any breakpoints are set. If you want the debugger to **stop on
-attach**, add the `"continueOnAttach": false` attribute to your `launch.json`:
+By default, SweetPad tells the debugger to continue running immediately after attaching, so you don't end up paused
+on an arbitrary instruction with no breakpoints set. If you'd rather have the debugger **stop on attach**, add
+`"continueOnAttach": false` to your configuration:
 
 ```json
 {
@@ -176,11 +172,15 @@ Note that `continueOnAttach` is a SweetPad-specific attribute, not part of the C
 
 ## Old tutorial (deprecated)
 
-> **Warning:** The following method is retained for backward compatibility. It still works, but the workflow above is
-> recommended.
+:::warning
+
+The following method is retained for backwards compatibility. It still works, but the flow above is the recommended
+one.
+
+:::
 
 1. **Install CodeLLDB.** Install the [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
-   extension from the VS Code Marketplace.
+   extension from the VSCode Marketplace.
 
    ![Install CodeLLDB](/images/debug-old-install-codelldb.png)
 
@@ -204,9 +204,9 @@ Note that `continueOnAttach` is a SweetPad-specific attribute, not part of the C
 ![Create launch.json](/images/debug-old-create-launch-json.png)
 ![Update launch.json](/images/debug-old-update-launch-json.png)
 
-The `${command:sweetpad.debugger.getAppPath}` variable is resolved at runtime to the path of the app most recently built
-by SweetPad—this is required by CodeLLDB to attach to the simulator. See the
-[CodeLLDB manual](https://github.com/vadimcn/codelldb/blob/master/MANUAL.md) for all available options.
+The `${command:sweetpad.debugger.getAppPath}` variable resolves at runtime to the path of the app most recently built
+by SweetPad — CodeLLDB needs it to attach to the simulator. See the
+[CodeLLDB manual](https://github.com/vadimcn/codelldb/blob/master/MANUAL.md) for the full set of options.
 
 3. **Launch the app.** Start the iOS Simulator and run **SweetPad › Launch** from the _Build_ panel.
 
@@ -217,7 +217,6 @@ by SweetPad—this is required by CodeLLDB to attach to the simulator. See the
 
    ![Attach](/images/debug-old-attach-ios-simulator.png)
 
-5. **Debug.** Set breakpoints and debug as usual. For subsequent debugging sessions, you can skip steps 1–3 and go
-   directly to attaching the debugger.
+5. **Debug.** Set breakpoints and debug as usual. For subsequent sessions, skip straight to step 4.
 
    ![Breakpoints](/images/debug-old-breakpoints.png)

@@ -4,51 +4,154 @@ sidebar_position: 6
 
 # iOS Devices
 
-Currently, SweetPad does not support much functionality for managing iOS devices. However, the extension provides basic
-integration with the devicectl command to run the app on the device.
+SweetPad runs and debugs your app on physical iPhones and iPads, with on-device log streaming and full LLDB
+debugging — the same flows you get for the Simulator.
 
-## Limitations
+## What works today
 
-1. You have to pair with the device using Xcode manually.
-2. It works only with **iOS 17** and **Xcode 15** or later.
-3. Logs and debugging from the device are currently not supported.
+- 🚀 Build, install, and launch on a connected device.
+- 🐞 Debug with LLDB (breakpoints, step, watch, the lot — see [Debugging](./debug.md)).
+- 📋 Stream `os_log` / `Logger` / `print` / `NSLog` output from the device into the SweetPad terminal.
+- 🔌 Wireless devices: as long as the device shows up in Xcode's **Devices and Simulators** window, SweetPad will use
+  it.
 
-## How to Run on the Device
+## Requirements
 
-1. Check that there are connected devices on the "Devices" panel of the extension.
-   ![Devices panel](/images/devices-panel.png)
-2. Click the `SweetPad: Build and Run (Launch)` command next to the scheme name.
-   ![Devices Launch](/images/devices-launch.png)
-3. Select the device from the list of simulators and connected devices. ![Devices Select](/images/devices-select.png)
-4. Wait until the app is installed and launched on the device (the device should be unlocked).
+1. **Xcode 15+** and a device paired through Xcode at least once (so the device trusts your Mac).
+2. **iOS 17+** to use the modern `xcrun devicectl` flow. Older iOS versions are still detected, but not all features
+   are supported.
+3. For on-device log streaming and iOS 17+ launches you'll want
+   [pymobiledevice3](https://github.com/doronz88/pymobiledevice3) installed (see below).
+
+## Run on a device
+
+1. Connect your iPhone/iPad over USB or have it on the same Wi-Fi network with **Connect via network** enabled in
+   Xcode.
+2. In the **Destinations** panel (or the status bar destination picker), pick the device.
+3. Click ▶️ next to a scheme in the Build view, or press F5 to launch under the debugger.
+4. Unlock the device — iOS shows the install prompt during the first launch, then the app starts.
+
    ![Devices Terminal](/images/devices-terminal.png)
 
-## How to Add a New Device
+The first launch after a long break, or after rebooting the device, may take a few seconds while iOS re-establishes
+the developer tunnel.
 
-To add a new device, you need to use Xcode. Usually, this should be done once, and then the device will be available
-every time you connect it to the computer using USB or when your device is connected to the same network as your
-computer.
+## Pair a new device
 
-1. Open Xcode and go to `Product` -> `Destination` -> `Manage Run destination.`
-   ![Devices Xcode](/images/devices-xcode-menu.png)
-2. Click the `+` button in the bottom left corner ![Devices Xcode Add](/images/devices-xcode-add.png)
-3. Follow the instructions in the Xcode window to pair the device.
+Pairing only needs to happen once per device/Mac combination:
 
-## How It Works
+1. Open Xcode → **Window** → **Devices and Simulators**.
+2. Click `+` in the lower-left.
+3. Follow the prompts (USB recommended for the first pairing; tick **Connect via network** once paired to use it
+   wirelessly afterwards).
+4. Back in VSCode, click ↻ on the Destinations panel or run `> SweetPad: Refresh devices list` to pick up the new
+   device.
 
-SweetPad utilizes Xcode's `xcrun devicectl` command that was introduced in Xcode 15. This command allows managing
-devices from the command line. We utilize the following commands to handle devices:
+## Stream `os_log` and `print` output from the device
 
+By default, when you launch an app on a physical device, SweetPad streams the device's syslog into the build terminal
+and filters it down to your app — `os_log`, `Logger`, `print`, and `NSLog` output all surface there, alongside the
+build output. This makes the device feel like the Simulator for everyday debugging.
+
+The stream uses [`pymobiledevice3`](https://github.com/doronz88/pymobiledevice3). Install it with the built-in
+helper:
+
+- Run `> SweetPad: Install pymobiledevice3` from the command palette and pick `uv`, `pipx`, or `pip` (`uv` is fastest
+  if you already use it; otherwise `pipx` keeps the install isolated).
+
+If you'd rather install it yourself:
+
+```bash
+uv tool install pymobiledevice3
+# or
+pipx install pymobiledevice3
+# or
+pip install --user pymobiledevice3
 ```
-xcrun devicectl list devices
-xcrun devicectl device install app --device <udid> <path>
-xcrun devicectl device launch app --terminate-existing --device <udid> <bundle_id>
+
+### Turn the stream off
+
+If you don't care about device logs (or you're streaming them yourself via another tool), disable it globally:
+
+```json title=".vscode/settings.json"
+{
+  "sweetpad.build.logStreamEnabled": false
+}
 ```
 
-## Stdout and stderr from the device
+### Filter what reaches the terminal
 
-Stdout and stderr from the device are supported only in Xcode 16 and later versions. If you are using Xcode 15, please
-update Xcode to the latest version to view logs from the device. Additionally, pass the `--console` option to the
-`xcrun devicectl device launch` app command to see logs from the device.
+The device stream comes from `pymobiledevice3 syslog live` (not Apple's `log` tool), so the filtering knobs are
+different from those on the Simulator. By default SweetPad keeps only your app's executable and drops Apple
+subsystems (`com.apple.*`). Adjust with subsystem allow/deny lists (Apple-style glob patterns):
 
-![Devices Stdout](/images/devices-stdout.png)
+```json title=".vscode/settings.json"
+{
+  "sweetpad.build.pymobiledevice3SubsystemAllowList": ["com.myapp.*"],
+  "sweetpad.build.pymobiledevice3SubsystemDenyList": ["com.apple.*"]
+}
+```
+
+`allowList` keeps only matching entries; `denyList` drops matching entries. Use one or both.
+
+:::note
+
+`sweetpad.build.logStreamPredicate` is **not** applied to the device stream — it controls Apple's `log stream` tool,
+which only runs for simulators and macOS. See
+[Simulators → Customize the predicate](./simulators.md#customize-the-predicate) for that flow.
+
+:::
+
+### Pass extra args to `pymobiledevice3`
+
+If you need flags that aren't covered above, append them with:
+
+```json title=".vscode/settings.json"
+{
+  "sweetpad.build.pymobiledevice3ExtraArgs": ["--color", "always"]
+}
+```
+
+### Use a non-default `pymobiledevice3`
+
+If the binary isn't on `PATH`, point at it explicitly:
+
+```json title=".vscode/settings.json"
+{
+  "sweetpad.build.pymobiledevice3Path": "/Users/me/.local/bin/pymobiledevice3"
+}
+```
+
+## iOS 17+: the developer tunnel
+
+iOS 17 moved on-device debugging behind a developer tunnel. Xcode normally manages this for you, but launching from
+outside Xcode requires `pymobiledevice3 remote tunneld` to be running (and it needs `sudo` for the privileged
+network bits).
+
+SweetPad can start it for you:
+
+```json title=".vscode/settings.json"
+{
+  "sweetpad.build.deviceTunnelAutoStart": true
+}
+```
+
+With this enabled, the first device launch in a session opens a terminal, runs
+`sudo pymobiledevice3 remote tunneld`, and reuses the running tunnel for subsequent launches. You'll be prompted for
+your password the first time. Leave it off if you prefer to manage `tunneld` yourself.
+
+## Debug on a device
+
+Debugging on a physical device works the same way as on the Simulator — `F5` with a `sweetpad-lldb` configuration in
+`launch.json`. There are a few device-specific knobs (LLDB command merging, "stop on attach") covered in
+[Debugging → Debugging on a physical device](./debug.md#debugging-on-a-physical-device).
+
+## Troubleshooting
+
+- **Device missing from the panel.** Click ↻ on the Destinations panel or run `> SweetPad: Refresh devices list`. If
+  it still doesn't show up, open **Devices and Simulators** in Xcode and check that the device is paired and trusted.
+- **"Could not establish a connection to the device."** Usually means the developer tunnel isn't running. Enable
+  `sweetpad.build.deviceTunnelAutoStart`, or run `sudo pymobiledevice3 remote tunneld` yourself.
+- **Device launches but no logs appear.** Confirm `pymobiledevice3` is installed and on `PATH`
+  (`which pymobiledevice3` should print a path). If you customized the subsystem allow/deny lists, try removing them
+  first to make sure they aren't filtering everything out.

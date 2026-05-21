@@ -4,6 +4,8 @@ sidebar_position: 8
 
 # watchOS Simulators
 
-The same as with iOS simulators, you can run and stop the watchOS simulator directly from the VSCode sidebar. This functionality utilizes `xcrun`, which is a component of the Xcode command-line tools. Check documentation for [iOS Simulators](./simulators.md) for more information.
+watchOS Simulators show up in the **Destinations** view alongside iOS Simulators and behave the same way — boot,
+stop, and run your app from the SweetPad sidebar. Everything in [iOS Simulators](./simulators.md) (logs, foreground
+focus, cache cleanup) applies here too.
 
-![watchos-simualator-demo](/images/watchos-simulator-demo.png)
+![watchos-simulator-demo](/images/watchos-simulator-demo.png)

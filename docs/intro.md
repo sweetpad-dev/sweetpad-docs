@@ -6,11 +6,12 @@ import ReactPlayer from 'react-player'
 
 # Introduction
 
-SweetPad is a VSCode extension that allows you to build and run your Xcode projects for iOS, macOS, and watchOS
-applications in VSCode. It's built on top of the Xcode CLI tools and several other open-source tools like
-[xcode-build-tools](https://github.com/SolaWing/xcode-build-server),
-[xcbeautify](https://github.com/cpisciotta/xcbeautify), [swift-format](https://github.com/swiftlang/swift-format), and
-others.
+SweetPad is a VSCode extension that lets you build, run, debug, and test your Xcode projects for iOS, macOS, tvOS,
+watchOS, and visionOS without leaving VSCode. It's built on top of the Xcode CLI tools, plus a handful of open-source tools
+like [xcode-build-server](https://github.com/SolaWing/xcode-build-server),
+[xcbeautify](https://github.com/cpisciotta/xcbeautify),
+[swift-format](https://github.com/swiftlang/swift-format), and
+[pymobiledevice3](https://github.com/doronz88/pymobiledevice3).
 
 :::info
 
@@ -19,11 +20,31 @@ tools to build and run your project.
 
 :::
 
-## Getting Started
+## What you get
+
+- 🛠️ **[Build & Run](./build.md)** apps on simulators, macOS, and physical devices straight from the SweetPad sidebar
+  — with support for Xcode workspaces, Xcode projects, [Tuist](./tuist.md), XcodeGen, and Swift Package Manager
+  (`Package.swift`).
+- 🐞 **[Debug](./debug.md)** with breakpoints, step, watch, and the rest of LLDB via the CodeLLDB extension — on the
+  Simulator and on physical iOS devices.
+- 📋 **Logs from devices and simulators** stream `os_log` / `Logger` / `print` / `NSLog` into the build terminal so
+  you don't have to keep Console.app open.
+- 🧪 **[Tests](./tests.md)** show up in VSCode's native Testing panel with gutter ▶️ buttons; supports XCTest and
+  Swift Testing.
+- ✍️ **[Format on save](./format.md)** with `swift-format` (Xcode's bundled copy by default) or any other Swift
+  formatter you prefer.
+- 💡 **[Autocomplete](./autocomplete.md)** via SourceKit-LSP backed by `xcode-build-server`, including inline
+  compiler diagnostics in the Problems panel.
+- 🌳 **[Git worktrees](./worktree.md)** — switch the active workspace between parallel checkouts of the same project
+  in one command.
+- 🤖 **[Agent CLI / RPC server](./agent-cli.md)** — opt-in JSON-RPC server and bundled `sweetpad` CLI so scripts and
+  AI coding agents can drive your VSCode session from the outside.
+
+## Getting started
 
 :::tip
 
-This tutorial also works for [Cursor](https://www.cursor.com/), an AI Code Editor that is a fork of VSCode.
+This tutorial also works for [Cursor](https://www.cursor.com/), an AI-first code editor that's a fork of VSCode.
 
 :::
 
@@ -32,33 +53,35 @@ First, install [VSCode](https://code.visualstudio.com/) and the extension from t
 
 ![Install extension](/images/intro/install-extension.png)
 
-Now, you need to create an Xcode project using Xcode or some other tools. We highly recommend giving
-[XcodeGen](https://github.com/yonaskolb/XcodeGen) or [Tuist](https://tuist.io/) a try, as they allow you to define the
-structure of your project in configuration files. However, Xcode is also fine.
+Next, create an Xcode project. We highly recommend [XcodeGen](https://github.com/yonaskolb/XcodeGen) or
+[Tuist](https://tuist.io/), which let you define the project structure in configuration files — but plain Xcode is
+fine too. SweetPad also works directly with Swift Packages: open a folder that contains a `Package.swift` and you're
+good to go.
 
 ![Xcode](/images/intro/create-project.png)
 
-Once you have a working Xcode project, open the project root folder in VSCode. Pay attention that you need to open the
-root folder of the project, not the `.xcodeproj` or `.xcworkspace` folder itself.
+Once you have a working Xcode project, open the project's root folder in VSCode — not the `.xcodeproj` or
+`.xcworkspace` folder itself.
 
 If you installed the extension correctly, you should see the SweetPad lollipop icon 🍭 in the left sidebar of the
 editor. This is the main entry point for using the extension.
 
 The main panels of the extension are:
 
-1. Build panel — shows the list of schemes and the "Launch" button to build and run the project.
-2. Destination panel — shows the list of available simulators and devices to run the project on.
+1. **Build** — shows the list of schemes and the "Launch" button to build and run the project.
+2. **Destinations** — lists every place you can run on: recently used destinations, simulators, and connected devices.
+3. **Tools** — installs and links to docs for the third-party tools SweetPad uses.
 
 ![Opened project](/images/intro/open-project.png)
 
-To start building and running the project, click on the play button next to the scheme and wait until the build process
-finishes. The extension will then boot up the simulator and run the app.
+To build and run the project, click ▶️ next to the scheme and wait for the build to finish. SweetPad then boots the
+simulator and launches the app.
 
-That's it! You have successfully built and run your first Xcode project in VSCode. For the next steps, we recommend:
+That's it — you've built and run your first Xcode project in VSCode. From here:
 
-- [to configure format on save](./format.md) to automatically format your code when you save.
-- to install xcbeautify for more readable build logs. You can use the ["Tools"](./tools.md) panel for that.
-- [to explore other features](/) of the extension.
+- [Configure format on save](./format.md) so Swift files reformat themselves on save.
+- Install `xcbeautify` for readable build logs — the [Tools](./tools.md) panel handles it.
+- Explore the rest of the [features](#what-you-get).
 
 ## Demo
 

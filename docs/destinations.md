@@ -2,43 +2,41 @@
 sidebar_position: 5
 ---
 
-
 # Destinations
 
-In SweetPad, a "destination" refers to a device on which you can run your app, such as a specific simulator or a
-connected device. Under the hood, SweetPad uses `xcrun simctl` and `xcrun devicectl` commands to manage simulators and
-devices.
+In SweetPad, a **destination** is anywhere you can run your app — a specific simulator or a connected device. Under
+the hood SweetPad uses `xcrun simctl` and `xcrun devicectl` to manage them.
 
-On the extension sidebar, you can see the destination manager, which consolidates all available destinations in one
-place **[1]**. It is divided into three sections:
+The **Destinations** view in the sidebar consolidates everything in one place **[1]**, grouped by platform:
 
-- **Recent** - A list of recently used destinations.
-- **Simulators** - A list of available simulators.
-- **Devices** - A list of connected devices.
+- **Recent** — destinations you've used lately (shown when non-empty).
+- **iOS / watchOS / tvOS / visionOS Simulators** — every installed simulator, one section per OS.
+- **macOS** — your local Mac as a destination for Mac apps.
+- **iOS / watchOS / tvOS / visionOS Devices** — physical devices paired with this Mac.
 
-There is also a status bar item at the bottom of the VSCode window that shows the currently selected destination and
-allows you to quickly change it **[2]**.
+A status bar item at the bottom of the VSCode window shows the active destination and lets you switch it with one
+click **[2]**.
 
 ![Destinations preview](/images/destinations-preview.png)
 
-## How to Select a Destination to Run Your App
+## Pick a destination
 
-To select a destination to run your app, you can use one of the following methods:
+You can select the destination in three ways:
 
-1. Click on the destination status bar item at the bottom of the VSCode window and select a destination from the list.
+1. **Status bar** — click the destination indicator in the status bar and pick from the list.
 
-![Select destination from status bar](/images/destinations-status-bar.png)
+   ![Select destination from status bar](/images/destinations-status-bar.png)
 
-2. Right-click on the destination in the sidebar and select `Set as active destination` from the context menu.
+2. **Sidebar** — right-click a destination in the **Destinations** view and choose **SweetPad: Select destination**.
 
-![Select destination from sidebar](/images/destinations-select-context-menu.png)
+   ![Select destination from sidebar](/images/destinations-select-context-menu.png)
 
-3. Simply run your app, and the extension will prompt you to select a destination from the list.
+3. **Just run the app** — if no destination is set, SweetPad prompts for one the first time you launch.
 
-![Select destination from ask dialog](/images/destinations-ask-panel.png)
+   ![Select destination from ask dialog](/images/destinations-ask-panel.png)
 
-## Related Documentation
+## Related pages
 
-- [SweetPad: iOS Simulator/Emulator Manager](./simulators.md)
-- [SweetPad: iOS Device Manager](./devices.md)
-- [SweetPad: watchOS Simulator Manager](./watchos-simulators.md)
+- [iOS Simulators](./simulators.md)
+- [iOS Devices](./devices.md)
+- [watchOS Simulators](./watchos-simulators.md)

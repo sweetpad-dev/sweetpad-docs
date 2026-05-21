@@ -2,26 +2,24 @@
 sidebar_position: 12
 ---
 
-
 # Tuist
 
-Instead of managing your Xcode project directly in Xcode, you can use the [Tuist](https://tuist.io) tool to define the
-structure of your project in a declarative way. The SweetPad extension provides integration with Tuist for the most
-common commands.
+[Tuist](https://tuist.io) lets you define your Xcode project declaratively instead of editing it through Xcode's UI.
+SweetPad surfaces the most common Tuist commands directly in the VSCode command palette.
 
 ## Commands
 
-- `sweetpad.tuist.generate` - SweetPad: Generate an Xcode project using Tuist
-- `sweetpad.tuist.install` - SweetPad: Install Swift Package using Tuist
-- `sweetpad.tuist.clean` - SweetPad: Clean Tuist project
-- `sweetpad.tuist.edit` - SweetPad: Edit Tuist project (Open project in Xcode)
+- **SweetPad: Generate an Xcode project using Tuist** — runs `tuist generate` from the workspace root.
+- **SweetPad: Install Swift Package using Tuist** — runs `tuist install`.
+- **SweetPad: Clean Tuist project** — removes generated files.
+- **SweetPad: Edit Tuist project (Open project in Xcode)** — opens the manifest project in Xcode for editing.
+- **SweetPad: Test Generated project using Tuist** — runs `tuist test`, building and testing every target Tuist
+  knows about. Useful as a one-shot "did I break anything" check without picking a scheme.
 
-## Watcher
+## Auto-regenerate on `.swift` file changes
 
-The SweetPad extension includes a file watcher for Tuist projects. When you create or delete a ".swift" file in the
-project, the watcher will automatically regenerate the Xcode project by executing the `sweetpad.tuist.generate` command.
-
-To enable the watcher, add the following configuration to your `.vscode/settings.json` file:
+If you frequently add or remove `.swift` files, let SweetPad re-run `tuist generate` automatically when those files
+change so new files show up in the project without a manual regeneration:
 
 ```json title=".vscode/settings.json"
 {
@@ -29,4 +27,22 @@ To enable the watcher, add the following configuration to your `.vscode/settings
 }
 ```
 
-Then, restart Visual Studio Code to apply the changes.
+Then restart VSCode to apply the change.
+
+## Dynamic Tuist configuration
+
+If you use [Tuist's dynamic configuration](https://docs.tuist.dev/en/guides/develop/projects/dynamic-configuration)
+to switch app name, bundle ID, or feature flags per environment, pass the variables through
+`sweetpad.tuist.generate.env`:
+
+```json title=".vscode/settings.json"
+{
+  "sweetpad.tuist.generate.env": {
+    "TUIST_APP_NAME": "Diia",
+    "TUIST_TARGET_COUNTRY": "Ukraine"
+  }
+}
+```
+
+Every call SweetPad makes to `tuist generate` (including the auto-regeneration above) receives these variables, so
+the project loaded into VSCode matches the variant Xcode would produce with the same env.
