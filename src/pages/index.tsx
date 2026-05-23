@@ -1,3 +1,4 @@
+import type * as React from "react";
 import Layout from "@theme/Layout";
 import styles from "./index.module.css";
 import Link from "@docusaurus/Link";
@@ -95,7 +96,7 @@ function Features() {
 	);
 }
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
 	return (
 		<Layout
 			title={"Home"}

@@ -9,7 +9,7 @@ import ReactPlayer from 'react-player'
 Boot, stop, and reset iOS Simulators directly from the VSCode sidebar. SweetPad drives `xcrun simctl` — the same tool
 Xcode's **Devices and Simulators** window uses behind the scenes.
 
-<ReactPlayer url="/images/simulators-demo.mp4" controls height="100%" width="100%" />
+<ReactPlayer src="/images/simulators-demo.mp4" controls style={{ width: '100%', height: '100%' }} />
 
 ## What you can do
 

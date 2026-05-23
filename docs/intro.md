@@ -87,4 +87,4 @@ That's it — you've built and run your first Xcode project in VSCode. From here
 
 Here is a short demo of building and running an Xcode project in VSCode:
 
-<ReactPlayer url="/images/intro/build-demo.mp4" controls height="100%" width="100%" />
+<ReactPlayer src="/images/intro/build-demo.mp4" controls style={{ width: '100%', height: '100%' }} />
