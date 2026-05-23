@@ -15,7 +15,16 @@
   --ifm-font-color-base: #333333; /* Slightly darker text for better readability */
   --ifm-font-color-dark: #222222;
 
-  --ifm-code-font-size: 95%;
+  /* Inline code — subtle borderless gray pill. The default Infima style tints
+     inline code with the theme primary color, which gets noisy at high density.
+     Override with a neutral gray fill and drop the border. Code blocks (pre code)
+     reset their own background, so this only affects inline `code`. */
+  --ifm-code-background: rgba(0, 0, 0, 0.06);
+  --ifm-code-padding-vertical: 0.12em;
+  --ifm-code-padding-horizontal: 0.42em;
+  --ifm-code-border-radius: 0.35em;
+  --ifm-code-font-size: 90%;
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   --ifm-link-color: var(--ifm-color-primary);
@@ -35,10 +44,18 @@
   /* Dark mode background contrast */
   --ifm-background-color: #767676; /* Darker background */
   --ifm-color-content-background: #1c1c1c; /* Darker content background */
-  
+
   /* Text contrast for dark mode */
   --ifm-font-color-base: #e0e0e0; /* Lighter text for better contrast */
   --ifm-font-color-dark: #ffffff;
 
+  --ifm-code-background: rgba(255, 255, 255, 0.1);
+
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1); /* Lighter for readability */
+}
+
+/* Drop the default border on inline code. Docusaurus' `pre code` rules already
+   strip the border for code blocks, so this only affects inline `code`. */
+code {
+  border: none;
 }
